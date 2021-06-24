@@ -45,8 +45,8 @@ fetch("https://striveschool-api.herokuapp.com/books")
             let title = event.target.parentNode.childNodes[1];
             title.closest("h5").style.color = "red"
             
-            console.log("event", event.target.parentNode.childNodes[1]);
-            console.log("button", button);
+            // console.log("event", event.target.parentNode.childNodes[1]);
+            // console.log("button", button);
             
            
 
@@ -62,11 +62,22 @@ fetch("https://striveschool-api.herokuapp.com/books")
               </li>`
             )
 
-            
+            let removeButton = document.querySelectorAll(".remove")
+            removeButton.forEach(list => {
+              list.addEventListener("click", function(){
+                let listItem = document.querySelectorAll("li")
+                listItem.forEach(item => {
+                  item.remove()
+                })
+                count=0
+              })
+            })
             
             
           })
         })
+        
+
 
     })
     .catch(err => console.log(err))
