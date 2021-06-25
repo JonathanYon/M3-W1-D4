@@ -76,7 +76,11 @@ fetch("https://striveschool-api.herokuapp.com/books")
             
           })
         })
-        
+        // let searchBtn = document.querySelector(".btn-outline-success")
+        // searchBtn.addEventListener("click", function(){
+        //   let searchBar = document.querySelector("input").value
+          
+        // })        
 
 
     })
