@@ -1,5 +1,5 @@
 let myArr = null;
-
+window.onload = function(){ 
 fetch("https://striveschool-api.herokuapp.com/books")
     .then(res => res.json())
     .then(datas => {
@@ -73,16 +73,47 @@ fetch("https://striveschool-api.herokuapp.com/books")
               })
             })
             
+              
             
           })
+             
         })
-        // let searchBtn = document.querySelector(".btn-outline-success")
-        // searchBtn.addEventListener("click", function(){
-        //   let searchBar = document.querySelector("input").value
-          
-        // })        
 
+
+          let theSearch = document.querySelector(".form-control")
+          theSearch.addEventListener("keyup", function(){
+            let search = this.value.toLowerCase()
+            let allH5 = document.querySelectorAll("h5")
+            let cols = document.querySelectorAll(".col-12")
+            
+            for (let i of allH5){
+              let item = i.innerHTML.toLowerCase()
+              if (item.indexOf(search) == -1){i.parentElement.parentElement.classList.add("d-none")}
+              else {i.parentElement.parentElement.classList.remove("d-none")}
+            }
+          })
+          
+      //   let h55 = document.querySelectorAll("h5")
+      //   let searchBtn = document.querySelector(".btn-outline-success")
+      //   searchBtn.addEventListener("click", function(){
+      //   let searchBar = document.querySelector("input").value
+      //   let val = searchBar.split("")
+      //   let threeVal = val.slice(0, 3)
+        
+        
+      //   h55.forEach(h5 => {
+      //     let h5Text = h5.innerText
+      //     console.log(h5Text)
+      //     let chars = h5Text.split("")
+      //     if (chars.includes(threeVal)){
+      //       console.log("its here")
+      //     }
+      //   })
+
+        
+        
+      // })
 
     })
     .catch(err => console.log(err))
-
+  }
