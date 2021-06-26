@@ -7,25 +7,7 @@ fetch("https://striveschool-api.herokuapp.com/books")
         myArr = datas;
         // console.log(myArr)
 
-        const displayHtml = function () {
-            let row = document.querySelector(".row")
-            myArr.forEach(ele => {
-                let col = document.createElement("div")
-                col.classList.add("col-12", "col-md-3", "mb-3", "d-flex")
-                col.insertAdjacentHTML(`afterbegin`, `<div class="card" style="width: 18rem;">
-                <img src="${ele.img}" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">${ele.title}</h5>
-                  <p class="card-text">${ele.price}</p>
-                  <p class="card-text">${ele.category}</p>
-                  <a href="#" class="btn btn-primary">Buy</a>
-                </div>
-              </div>`)
-              row.appendChild(col)
-
-              
-            });
-        }
+        
         displayHtml()
 
         
@@ -34,7 +16,7 @@ fetch("https://striveschool-api.herokuapp.com/books")
 
         let buttonList = document.querySelectorAll("a")      // grabing the list button links
         let badge = document.querySelector("span.badge")
-        let count = 0;
+        // let count = 0;
 
         
         
@@ -44,15 +26,14 @@ fetch("https://striveschool-api.herokuapp.com/books")
             button.classList.add("btn-danger")
             let title = event.target.parentNode.childNodes[1];
             title.closest("h5").style.color = "red"
-            
             // console.log("event", event.target.parentNode.childNodes[1]);
             // console.log("button", button);
             
            
 
-            count += 1;
+            // count += 1;
            
-            badge.innerText = count
+            // badge.innerText = count
             let list = document.querySelector("ul")
             
             list.insertAdjacentHTML(`afterbegin`, 
@@ -61,17 +42,23 @@ fetch("https://striveschool-api.herokuapp.com/books")
                 <button type="button" class="btn btn-danger ml-5 remove">Remove</button>
               </li>`
             )
+            badge.innerText = list.childElementCount;
 
             let removeButton = document.querySelectorAll(".remove")
-            removeButton.forEach(list => {
-              list.addEventListener("click", function(){
-                let listItem = document.querySelectorAll("li")
-                listItem.forEach(item => {
-                  item.remove()
-                })
-                count=0
+            Array.prototype.slice.call(removeButton).forEach(item => {
+              item.addEventListener("click", function(e){
+               e.target.parentNode.remove()
+               button.classList.remove("btn-danger")
+               button.classList.add("btn-primary")
+               
+               badge.innerText = list.childElementCount;
               })
             })
+              
+            
+
+
+            
             
               
             
@@ -93,27 +80,34 @@ fetch("https://striveschool-api.herokuapp.com/books")
             }
           })
           
-      //   let h55 = document.querySelectorAll("h5")
-      //   let searchBtn = document.querySelector(".btn-outline-success")
-      //   searchBtn.addEventListener("click", function(){
-      //   let searchBar = document.querySelector("input").value
-      //   let val = searchBar.split("")
-      //   let threeVal = val.slice(0, 3)
-        
-        
-      //   h55.forEach(h5 => {
-      //     let h5Text = h5.innerText
-      //     console.log(h5Text)
-      //     let chars = h5Text.split("")
-      //     if (chars.includes(threeVal)){
-      //       console.log("its here")
-      //     }
-      //   })
-
-        
-        
-      // })
+          let darkBtn = document.querySelectorAll(".btn-dark")
+          darkBtn.forEach(btn => {
+            btn.addEventListener("click", function(event){
+              let parent = event.target.parentElement.parentElement.classList.add("d-none")
+            })
+          })
 
     })
     .catch(err => console.log(err))
   }
+
+  const displayHtml = function () {
+    let row = document.querySelector(".row")
+    myArr.forEach(ele => {
+        let col = document.createElement("div")
+        col.classList.add("col-12", "col-md-3", "mb-3", "d-flex")
+        col.insertAdjacentHTML(`afterbegin`, `<div class="card" style="width: 18rem;">
+        <img src="${ele.img}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">${ele.title}</h5>
+          <p class="card-text">${ele.price}</p>
+          <p class="card-text">${ele.category}</p>
+          <a href="#" class="btn btn-primary">Buy</a>
+          <a href="#" class="btn btn-dark">Hide</a>
+        </div>
+      </div>`)
+      row.appendChild(col)
+
+      
+    });
+}
